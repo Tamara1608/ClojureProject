@@ -1,14 +1,14 @@
 (ns sample.views.book
   (:require [hiccup.element :refer :all]
             [hiccup.form :refer :all]
-            [ring.util.anti-forgery :refer [anti-forgery-field]]
+            ;; [ring.util.anti-forgery :refer [anti-forgery-field]]
             [sample.helpers :refer [input-control]]))
 
 (defn add-book-page [& [errors]]
   [:div
    [:h1 "Add a Book"]
    (form-to {:enctype "multipart/form-data"} [:post "/addBook"]
-            (anti-forgery-field)
+            ;; (anti-forgery-field)
             [:div {:class "form-group"}
              (input-control text-field "title" "Title" nil true (:title errors))]
             [:div {:class "form-group"}
@@ -29,7 +29,7 @@
   [:div
    [:h1 "Edit book"]
    (form-to {:enctype "multipart/form-data"} [:post "/updateBook"]
-            (anti-forgery-field)
+            ;; (anti-forgery-field)
             [:div {:class "form-group"}
              (input-control text-field "title" "Title" (:title book) true nil)]
             [:div {:class "form-group"}

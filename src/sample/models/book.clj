@@ -24,7 +24,7 @@
   (Integer. (re-find  #"\d+" s)))
  
 (defn update-book [user-id book-id new-data]
-  (let [data (-> new-data (assoc :user_id user-id) (dissoc :__anti-forgery-token))]
+  (let [data (-> new-data (assoc :user_id user-id) )]
     (sql/update! db :book (dissoc data :id) 
                  ["id = CAST(? AS INTEGER) AND user_id = ?"
                   (Integer. (:id data))
@@ -32,7 +32,7 @@
 
  
 (defn create-book [user-id book]
-  (let [data (-> book (assoc :user_id user-id) (dissoc :__anti-forgery-token))]
+  (let [data (-> book (assoc :user_id user-id) )]
     (println data)
      (sql/insert! db :book data)))
 
