@@ -19,7 +19,7 @@
             [migratus-lein "0.5.0"]]
   :migratus {:store :database
              :migration-dir "migrations"
-             :db (or (System/getenv "DATABASE_URL") "postgresql://postgres:1234@localhost:5432/sample")}
+             :db (or (System/getenv "DATABASE_URL") "postgresql://postgres:1234@localhost:5432/database")}
   :ring {:handler sample.handler/app
          :init sample.handler/init}
   :profiles

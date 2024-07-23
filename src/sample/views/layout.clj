@@ -39,7 +39,7 @@
      [:div.container
       [:div.navbar-header
        [:a.navbar-brand {:href "/"}
-        [:strong "Libre Nation"]]]
+        [:strong "RemoveBg"]]]
       (if user
         (user-menu user)
         (guest-menu))]]

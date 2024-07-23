@@ -2,11 +2,6 @@
    (:require [clojure.java.jdbc :as sql]
              [sample.db :refer :all]))
 
- (defn get-book-by-name [name]
-   (sql/query db
-              ["SELECT * FROM book WHERE name = ?", name]
-              {:result-set-fn first}))
-
  (defn get-book-by-id [id]
    (sql/query db
               ["SELECT * FROM book WHERE id = ?", id]

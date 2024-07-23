@@ -13,7 +13,7 @@
 (def migratus-config
   {:store :database
    :migration-dir "migrations"
-   :db "postgresql://postgres:1234@localhost:5432/sample" })
+   :db "postgresql://postgres:1234@localhost:5432/database" })
 
 (defn init []
   (migratus/migrate migratus-config))

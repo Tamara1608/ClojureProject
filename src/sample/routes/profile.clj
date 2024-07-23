@@ -30,6 +30,7 @@
 (defn update-profile [name user file]
   (do
     (db/update-user (:id user) {:name name})
+    (print(:name user))
     (when (seq (:filename file))
       (avatar-db/create-avatar {:user_id (:id user)
                                 :name (:filename file)})

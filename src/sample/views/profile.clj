@@ -1,11 +1,9 @@
 (ns sample.views.profile
-  (:require [hiccup.page :refer [html5 include-css]]
-            [hiccup.element :refer :all]
+  (:require [hiccup.element :refer :all]
             [hiccup.form :refer :all]
             [clj-time.coerce :as c]
             [clj-time.format :as f]
             [sample.models.avatar :as avatar-db]
-            [sample.models.user :as db]
             [sample.models.book :as book]
             [sample.helpers :refer :all]
             [ring.util.anti-forgery :refer [anti-forgery-field]]))
@@ -57,10 +55,7 @@
             ]]]
          ])
        ]
-     )
-
-    ;; [:p "No books added."]
-    ]
+     ) ]
    [:hr]
    [:div {:class "btn-group"}
     [:a {:href "/profile/edit" :class "btn btn-default"} "Edit profile"]

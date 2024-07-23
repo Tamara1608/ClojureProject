@@ -1,21 +1,23 @@
 (ns sample.routes.home
-  (:require [compojure.core :refer :all]
-            [sample.helpers :refer :all]
-            [sample.views.home :as view]
-            [sample.views.book :as book-view]
-            [sample.views.layout :as layout]
-            [sample.models.book :as book-model]))
+  (:require [compojure.core :refer [defroutes GET POST]]
+            [ring.middleware.multipart-params :refer [wrap-multipart-params]]
+            [ring.util.response :as response]
+            [sample.models.user :as user]
+            [sample.views.home :refer [home]]))
 
 
-(defn home [user]
-  (let [all-books (book-model/get-all-books)]
-    (layout/common (view/home user all-books) user)))
+(defn process-image [file]
+  ;; Placeholder for actual image processing logic
+  (let [image-path (str "uploads/" (:filename file))]
+    (spit image-path (:tempfile file)) ; Save the file for now
+    image-path))
 
+(defn upload-handler [req]
+  (let [file (get-in req [:params "image"])
+        processed-image-path (process-image file)]
+    (response/response (str "<img src=\"" processed-image-path "\" alt=\"Processed Image\"/>"))))
 
 (defroutes home-routes
   (GET "/" {{:keys [user-id]} :session}
-    (home (get-user user-id))) 
-  (GET "/add-book" []
-    (layout/common (book-view/add-book-page) nil))
-  
-  ) 
+    (home (user/get-user-by-id user-id)))  
+  (POST "/upload" req (upload-handler req)))

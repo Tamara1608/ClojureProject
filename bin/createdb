@@ -1,2 +1,2 @@
-createdb sample
+createdb database
 createdb sample-test
