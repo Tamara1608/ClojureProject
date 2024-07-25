@@ -24,38 +24,6 @@
     [:p
      [:span "Member since: "]
      [:strong (f/unparse (f/formatters :date) (c/from-date (:timestamp user)))]]]
-
-  ;;  [:div
-  ;;   [:h3 "My Books"]
-  ;;   (if-let [books (book/get-book-by-user (:id user))]
-  ;;     [:div
-  ;;      (for [book books] 
-  ;;       [:div {:class "book-details"}
-  ;;         [:img {:src (:picture_url book) :alt "Book Cover" :class "book-cover"}]
-  ;;         [:div {:class "book-info"}
-  ;;          [:h4
-  ;;           [:span "Title: "] [:strong (:title book)]]
-  ;;          [:p
-  ;;           [:span "Author: "] [:strong (:author book)]]
-  ;;          [:p
-  ;;           [:span "Pages: "] [:strong (:pages book)]]
-  ;;          [:p
-  ;;           [:span "Price: "] [:strong (:price book)]] 
-  ;;         [:div {:class "btn-toolbar"} 
-  ;;          [:div {:class "btn-group"} 
-  ;;           [:a {:href (str "/editBook/" (:id book)) :class "btn btn-default"} "Edit"]] 
-  ;;          [:div {:class "btn-group"}
-  ;;           ;; [:form {:action (str "/deleteBook/" (:id book)) :method "post" (anti-forgery-field) :onsubmit "return confirm('Are you sure you want to delete this book?');"} 
-  ;;           ;;  [:input {:type "submit" :value "Delete" :class "btn btn-danger"}]]
-  ;;           [:form {:action "/deleteBook" :method "POST"}
-  ;;            [:input {:type "hidden" :name "id" :value (:id book)}]
-  ;;              (anti-forgery-field)
-  ;;            (println "BOOK to delete " :id book)
-  ;;              [:button {:class "btn btn-danger" :type "submit" :onclick "return confirm(\"Are you sure?\");"} "Delete Book"]] 
-  ;;           ]]]
-  ;;        ])
-  ;;      ]
-  ;;    ) ]
    [:hr]
    [:div {:class "btn-group"}
     [:a {:href "/profile/edit" :class "btn btn-default"} "Edit profile"]

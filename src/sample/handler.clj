@@ -13,7 +13,8 @@
             [ring.util.response :refer [response]]
             [clojure.java.io :as io]
             [clj-http.client :as client]
-            [cheshire.core :as json]))
+            ;; [cheshire.core :as json]
+            [clojure.data.json :as json]))
 
 (def migratus-config
   {:store :database
@@ -32,51 +33,13 @@
   (route/resources "/")
   (route/not-found (not-found)))
 
-;; Function to call the background removal API
-(defn call-background-removal-api [image-url]
-  (let [url "https://staging-bg-removal-1.hunchads.com/api/background-removal"
-        payload {:teamId "2"
-                 :imageUrlsWithCategories [{:imageUrl image-url}]}
-        response (client/post url
-                              {:body (json/generate-string payload)
-                               :headers {"Content-Type" "application/json"
-                                         "Authorization" "Bearer b6ec313ace84511eba266ed396ea166b9525abcd73ac1e2c07c967033ebc895d"}})]
-    (json/parse-string (:body response) true)))
-
-;; Handler function to manage image uploads
-(defn upload-image-handler [request]
-  (let [file (get-in request [:params :file])
-        temp-file (:tempfile file)
-        file-name (:filename file)
-        output-path (str "resources/public/uploads/" file-name)]
-    (try
-      (io/copy temp-file (io/file output-path))
-      ;; Generate the URL for the uploaded image
-      (let [image-url (str "http://localhost:3000/uploads/" file-name)
-            api-response (call-background-removal-api image-url)]
-        (if (get api-response "status")
-          (response {:status "success"
-                     :result (get api-response "result" nil)})
-          (response {:status "error"
-                     :message "Failed to process image"})))
-      (catch Exception e
-        (response {:status "error" :message (.getMessage e)})))))
-
-(defroutes image-routes
-  (POST "/upload" request (upload-image-handler request)))
-
-(def app-routes
-  (routes
-   auth-routes
-   home-routes
-   profile-routes
-   files-routes
-   library-routes
-   image-routes
-   static-routes))
-
 (def app
-  (-> app-routes
-      wrap-multipart-params
-      ;; wrap-defaults is used without anti-forgery middleware
-      (wrap-defaults (assoc site-defaults :security nil))))
+  (-> (routes
+       auth-routes
+       home-routes
+       profile-routes
+       files-routes
+       library-routes
+       static-routes)
+       wrap-multipart-params
+       (wrap-defaults (assoc-in site-defaults [:security :anti-forgery] false))))

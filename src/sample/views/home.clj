@@ -12,8 +12,8 @@
       [:div
        [:form {:action "/upload" :method "post" :enctype "multipart/form-data"}
         [:div.form-group
-         [:label {:for "image"} "Upload Image"]
-         [:input {:type "file" :name "image" :id "image" :class "form-control"}]]
+         [:label {:for "file"} "Upload Image"]
+         [:input {:type "file" :name "file" :id "file" :class "form-control"}]]
         [:button {:type "submit" :class "btn btn-primary"} "Upload"]]]
       [:div {:class "alert alert-info" :role "alert"}
        [:strong "Register now! "] "Get your background removed!"])]
