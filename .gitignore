@@ -12,3 +12,4 @@ pom.xml.asc
 resources/public/avatars/
 .clj-kondo
 .lsp
+/resources

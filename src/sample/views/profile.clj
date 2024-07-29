@@ -4,7 +4,6 @@
             [clj-time.coerce :as c]
             [clj-time.format :as f]
             [sample.models.avatar :as avatar-db]
-            [sample.models.book :as book]
             [sample.helpers :refer :all]
            ))
 

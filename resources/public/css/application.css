@@ -9,22 +9,6 @@
   margin-bottom: 20px;
 }
 
-.book-details {
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin-bottom: 20px;
-  display: flex;
-}
-
-.book-cover {
-  width: 100px; 
-  margin-right: 10px;
-}
-
-.book-info {
-  flex-grow: 1; 
-}
-
 .no-show{
   display: none;
 }

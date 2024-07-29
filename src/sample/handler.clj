@@ -5,7 +5,6 @@
             [sample.routes.home :refer [home-routes]]
             [sample.routes.profile :refer [profile-routes]]
             [sample.routes.auth :refer [auth-routes]]
-            [sample.routes.library :refer [library-routes]]
             [sample.routes.files :refer [files-routes]]
             [sample.views.layout :as layout]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
@@ -39,7 +38,6 @@
        home-routes
        profile-routes
        files-routes
-       library-routes
        static-routes)
        wrap-multipart-params
        (wrap-defaults (assoc-in site-defaults [:security :anti-forgery] false))))
