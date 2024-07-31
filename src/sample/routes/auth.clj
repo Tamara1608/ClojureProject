@@ -37,11 +37,11 @@
 (defn handle-login [email password]
   (let [user (db/get-user-by-email email)]
     (if (and user (crypt/verify password (:encrypted_password user)))
-      (assoc (response/redirect "/") :session (user-to-session user))
+      (assoc (response/redirect "/home") :session (user-to-session user))
       (login-page email {:email "Email or password is invalid"}))))
 
 (defn handle-logout []
-  (assoc (response/redirect "/") :session nil))
+  (assoc (response/redirect "/home") :session nil))
 
 (defn handle-registration [name email password password-confirmation]
   (let [errors (first (validate-user name email password password-confirmation))]
@@ -52,7 +52,7 @@
         (do
           (db/create-user {:name name :email email :encrypted_password (crypt/encrypt password)})
           (let [user (db/get-user-by-email email)]
-            (assoc (response/redirect "/") :session (user-to-session user))))))))
+            (assoc (response/redirect "/home") :session (user-to-session user))))))))
 
 (defroutes auth-routes
   (GET "/login" []

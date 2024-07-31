@@ -2,18 +2,15 @@
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
             [migratus.core :as migratus]
-            [sample.routes.home :refer [home-routes]]
-            [sample.routes.profile :refer [profile-routes]]
+            [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
+            [ring.middleware.multipart-params :refer [wrap-multipart-params]] ;; [cheshire.core :as json]
+            [ring.middleware.session :refer [wrap-session]]
+            [ring.middleware.session.memory :refer [memory-store]]
             [sample.routes.auth :refer [auth-routes]]
             [sample.routes.files :refer [files-routes]]
-            [sample.views.layout :as layout]
-            [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
-            [ring.middleware.multipart-params :refer [wrap-multipart-params]]
-            [ring.util.response :refer [response]]
-            [clojure.java.io :as io]
-            [clj-http.client :as client]
-            ;; [cheshire.core :as json]
-            [clojure.data.json :as json]))
+            [sample.routes.home :refer [home-routes]]
+            [sample.routes.profile :refer [profile-routes]]
+            [sample.views.layout :as layout]))
 
 (def migratus-config
   {:store :database
@@ -39,5 +36,6 @@
        profile-routes
        files-routes
        static-routes)
-       wrap-multipart-params
-       (wrap-defaults (assoc-in site-defaults [:security :anti-forgery] false))))
+      wrap-multipart-params
+      (wrap-session {:store (memory-store)})  ;; Add session middleware
+      (wrap-defaults (assoc-in site-defaults [:security :anti-forgery] false))))
