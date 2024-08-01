@@ -34,18 +34,19 @@ Welcome to the Bookstore "Libre Nation" project ! This is a Clojure-based applic
      ```bash
     docker run --name database -e POSTGRES_PASSWORD=1234 -p 5432:5432 -d postgres
     ```
+     ```bash
     psql -U postgres -d database
 
-   CREATE DATABASE database;
-
-   CREATE TABLE users (
+    CREATE DATABASE database;
+    
+    CREATE TABLE users (
       id    SERIAL PRIMARY KEY,
       email varchar(255) NOT NULL UNIQUE,
       name  varchar(255) NOT NULL,
       encrypted_password varchar(255),
       timestamp timestamp DEFAULT current_timestamp
-);
-
+     );
+```
    
 
 4. Run the application:
