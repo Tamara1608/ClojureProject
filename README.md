@@ -46,7 +46,7 @@ Welcome to the Bookstore "Libre Nation" project ! This is a Clojure-based applic
       encrypted_password varchar(255),
       timestamp timestamp DEFAULT current_timestamp
      );
-```
+    ```
    
 
 4. Run the application:
