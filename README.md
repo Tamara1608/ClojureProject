@@ -34,14 +34,27 @@ Welcome to the Bookstore "Libre Nation" project ! This is a Clojure-based applic
      ```bash
     docker run --name database -e POSTGRES_PASSWORD=1234 -p 5432:5432 -d postgres
     ```
+    psql -U postgres -d database
 
-3. Run the application:
+   CREATE DATABASE database;
+
+   CREATE TABLE users (
+      id    SERIAL PRIMARY KEY,
+      email varchar(255) NOT NULL UNIQUE,
+      name  varchar(255) NOT NULL,
+      encrypted_password varchar(255),
+      timestamp timestamp DEFAULT current_timestamp
+);
+
+   
+
+4. Run the application:
 
     ```bash
     lein ring server
     ```
 
-4. Access the application at [http://localhost:3000](http://localhost:3000).
+5. Access the application at [http://localhost:3000](http://localhost:3000).
 
 ## Features
 
