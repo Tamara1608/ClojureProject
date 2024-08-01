@@ -1,6 +1,6 @@
-# Bookstore Project in Clojure
+# Background removal Project in Clojure
 
-Welcome to the Bookstore "Libre Nation" project ! This is a Clojure-based application built with Leiningen, PostgreSQL and Hiccups. The project includes features such as user authentication (login/register), book management (add, delete, edit), and user profile customization.
+Welcome to the Bookstore "Remove Bg" project ! This is a Clojure-based application built with Leiningen, PostgreSQL and Hiccups. The project includes features such as user authentication (login/register), upload of files, connecting to external API and user profile customization.
 
 ## Technologies Used
 - Clojure
@@ -46,6 +46,13 @@ Welcome to the Bookstore "Libre Nation" project ! This is a Clojure-based applic
       encrypted_password varchar(255),
       timestamp timestamp DEFAULT current_timestamp
      );
+    CREATE TABLE avatars (
+      id SERIAL PRIMARY KEY,
+      name varchar(255) NOT NULL,
+      user_id INTEGER NOT NULL,
+      timestamp timestamp DEFAULT current_timestamp
+    );
+     
     ```
    
 
@@ -55,7 +62,7 @@ Welcome to the Bookstore "Libre Nation" project ! This is a Clojure-based applic
     lein ring server
     ```
 
-5. Access the application at [http://localhost:3000](http://localhost:3000).
+5. Access the application at [http://localhost:3000](http://localhost:3000/home).
 
 ## Features
 
