@@ -19,17 +19,16 @@
         multipart-data [{:name "image_file"
                          :content file
                          :filename (.getName file)
-                         :mime-type "image/jpeg"}]] 
-    (http/post url
-               {:multipart multipart-data}
-               (fn [{:keys [status body] :as resp}] 
-                 (when (= 200 status)
-                   (with-open [out (io/output-stream output-file)]
-                     (io/copy body out))
-                   (log/info output-file)
-                   (callback {:status status :body output-file}))
-                 (when (not= 200 status)
-                   (callback {:status status :body (slurp body)}))))))
+                         :mime-type "image/jpeg"}]
+        {:keys [status body]} @(http/post url {:multipart multipart-data})]
+    (if (not= 200 status)
+      (callback {:status status :body (slurp body)})
+
+      (do
+        (with-open [out (io/output-stream output-file)]
+          (io/copy body out))
+        (log/info output-file)
+        (callback {:status status :body output-file})))))
 
 (defn upload-handler [req]
   (let [file (get-in req [:multipart-params "file"])
@@ -38,8 +37,8 @@
     (if temp-file
       (let [output-path (str "resources/public/uploads/" file-name)]
         (io/copy temp-file (java.io.File. output-path))
-        (call-background-removal-api output-path 
-                                     (fn [{:keys [status body]}] 
+        (call-background-removal-api output-path
+                                     (fn [{:keys [status body]}]
                                        (if (= 200 status)
                                          (-> (response/response body)
                                              (assoc :headers {"Content-Type" "image/png"}))
@@ -47,10 +46,21 @@
       (response/status (response/response "File upload failed") 400))))
 
 
-(defroutes home-routes 
-    (GET "/home" req
-      (let [session (:session req)]
-        (let [{:keys [user-id]} session]
-          (home (user/get-user-by-id user-id) req)))) 
+(defroutes home-routes
+  (GET "/home" req
+    (let [session (:session req)]
+      (let [{:keys [user-id]} session]
+        (home (user/get-user-by-id user-id) req))))
 
-     (POST "/home/upload" req (upload-handler req)))
+  (POST "/home/upload" req (upload-handler req)))
+
+(comment
+  ;;;
+  (def temp-file (io/file "resources/public/uploads/360_F_617132669_YptvM7fIuczaUbYYpMe3VTLimwZwzlWf.jpg"))
+
+  (def file {:tempfile temp-file
+             :filename "test_abc.jpg"})
+
+  (upload-handler {:multipart-params {"file" file}})
+  ;;;
+  )
