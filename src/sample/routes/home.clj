@@ -26,9 +26,9 @@
 
       (do
         (with-open [out (io/output-stream output-file)]
-          (io/copy body out))
+          (io/copy (.bytes body) out))
         (log/info output-file)
-        (callback {:status status :body output-file})))))
+        (callback {:status status :body (.bytes body)})))))
 
 (defn upload-handler [req]
   (let [file (get-in req [:multipart-params "file"])
@@ -37,8 +37,8 @@
     (if temp-file
       (let [output-path (str "resources/public/uploads/" file-name)]
         (io/copy temp-file (java.io.File. output-path))
-        (call-background-removal-api output-path
-                                     (fn [{:keys [status body]}]
+        (call-background-removal-api output-path 
+                                     (fn [{:keys [status body]}] 
                                        (if (= 200 status)
                                          (-> (response/response body)
                                              (assoc :headers {"Content-Type" "image/png"}))
@@ -46,13 +46,13 @@
       (response/status (response/response "File upload failed") 400))))
 
 
-(defroutes home-routes
-  (GET "/home" req
-    (let [session (:session req)]
-      (let [{:keys [user-id]} session]
-        (home (user/get-user-by-id user-id) req))))
+(defroutes home-routes 
+    (GET "/home" req
+      (let [session (:session req)]
+        (let [{:keys [user-id]} session]
+          (home (user/get-user-by-id user-id) req)))) 
 
-  (POST "/home/upload" req (upload-handler req)))
+     (POST "/home/upload" req (upload-handler req)))
 
 (comment
   ;;;
