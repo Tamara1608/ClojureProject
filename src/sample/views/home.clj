@@ -13,15 +13,17 @@
       (if (:id user)
         [:div
          [:form {:id "upload-form" :action "/home/upload" :method "post" :enctype "multipart/form-data" :class "mb-4"}
-          [:div.form-group.text-center.d-flex.justify-content-center
-           [:label {:for "file" :class "btn btn-primary btn-lg mr-2"} "Choose File"
+          [:div.form-group.text-center
+           [:label {:for "file" :class "btn btn-primary btn-lg"} "Choose File"
             [:input {:type "file" :name "file" :id "file" :class "form-control" :style "display:none;"
                      :onchange "document.getElementById('file-name').textContent = this.files[0].name;"}]]
-           [:span#file-name.align-self-center "No file chosen"]
-           [:button {:type "submit" :class "btn btn-success btn-lg ml-2"} "Upload"]]]
+           [:div.text-center.mt-2
+            [:span#file-name "No file chosen"]]]
+          [:div.text-center.mt-3
+           [:button {:type "submit" :class "btn btn-success btn-lg"} "Upload"]]]
          [:div.text-center.mt-4
-          [:div#canvas-container {:style "position: relative; width: 100%; max-width: 800px; margin: 0 auto; padding: 10px; border: 4px solid #ccc; box-sizing: border-box;"}
-           [:canvas#image-canvas {:width "800" :height "600" :style "display: block; margin: 0 auto; border: 2px solid #ccc;"}]]]
+          [:div#canvas-container {:class "border border-secondary p-3" :style "position: relative; width: 100%; max-width: 800px; margin: 0 auto; box-sizing: border-box;"}
+           [:canvas#image-canvas {:width "800" :height "690" :style "display: block; margin: 0 auto; border: 3px solid #ccc;"}]]]
          [:div.text-center.mt-2
           [:button#download-btn.btn.btn-primary {:type "button"} "Download Image"]]
          [:script {:type "text/javascript"}

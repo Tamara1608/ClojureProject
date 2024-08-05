@@ -25,7 +25,7 @@
      [:meta {:name "description" :content "Clojure application/TamaraDjordjevic/20223716"}]
      [:meta {:name "keywords" :content "images pictures"}]
      [:meta {:name "viewport" :content "width=device-width, initial-scale=1.0"}]
-     [:title "Libre Nation"]
+     [:title "RemoveBg"]
      [:link {:rel "icon" :href "/img/favicon.ico" :type "image/x-icon"}]
      (include-css "/css/bootstrap.min.css")
      (include-css "/css/application.css")
@@ -38,7 +38,7 @@
     [:header.navbar.navbar-default.navbar-static-top.navbar-default
      [:div.container
       [:div.navbar-header
-       [:a.navbar-brand {:href "/"}
+       [:a.navbar-brand {:href "/home"}
         [:strong "RemoveBg"]]]
       (if user
         (user-menu user)
