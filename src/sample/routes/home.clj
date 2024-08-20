@@ -47,7 +47,7 @@
 
 
 (defroutes home-routes 
-    (GET "/home" req
+    (GET "/" req
       (let [session (:session req)]
         (let [{:keys [user-id]} session]
           (home (user/get-user-by-id user-id) req)))) 

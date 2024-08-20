@@ -15,6 +15,7 @@
 
 body {
   background-image: url('/img/background_new.svg');
+  font-family: "JetBrains Mono",monospace;
 }
 
 /* CSS */

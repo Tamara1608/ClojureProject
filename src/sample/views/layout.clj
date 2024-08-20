@@ -39,7 +39,7 @@
     [:header.navbar.navbar-default.navbar-static-top.navbar-default
      [:div.container
       [:div.navbar-header
-       [:a.navbar-brand {:href "/home"}
+       [:a.navbar-brand {:href "/"}
         [:strong "RemoveBg"]]]
       (if user
         (user-menu user)
