@@ -1,5 +1,6 @@
 (ns sample.views.layout
   (:require [hiccup.page :refer [html5 include-css include-js]]
+            
             [hiccup.element :refer [link-to]]))
 
 (defn guest-menu []

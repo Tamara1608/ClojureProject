@@ -6,6 +6,7 @@
             [ring.middleware.multipart-params :refer [wrap-multipart-params]] ;; [cheshire.core :as json]
             [ring.middleware.session :refer [wrap-session]]
             [ring.middleware.session.memory :refer [memory-store]]
+            [ring.middleware.reload :refer [wrap-reload]]
             [sample.routes.auth :refer [auth-routes]]
             [sample.routes.files :refer [files-routes]]
             [sample.routes.home :refer [home-routes]]
@@ -37,5 +38,6 @@
        files-routes
        static-routes)
       wrap-multipart-params
+      wrap-reload
       (wrap-session {:store (memory-store)})  ;; Add session middleware
       (wrap-defaults (assoc-in site-defaults [:security :anti-forgery] false))))

@@ -7,25 +7,24 @@
   (let [user-id (get-in user [:id])]
     (log/info "user id " user-id)
     (common
-     [:div.container
-      [:h1.text-center "RemoveBG"]
-      [:p.text-center "Welcome, " (or (:name user) "Guest") "!"]
+      [:div.container
+      ;; [:p.text-center "Welcome, " (or (:name user) "Guest") "!"]
       (if (:id user)
-        [:div
+        [:div 
          [:form {:id "upload-form" :action "/home/upload" :method "post" :enctype "multipart/form-data" :class "mb-4"}
           [:div.form-group.text-center
-           [:label {:for "file" :class "btn btn-primary btn-lg"} "Choose File"
+           [:label {:for "file" :class "btn button-2 btn-md"} "Choose File"
             [:input {:type "file" :name "file" :id "file" :class "form-control" :style "display:none;"
                      :onchange "document.getElementById('file-name').textContent = this.files[0].name;"}]]
-           [:div.text-center.mt-2
+           [:div.mt-2
             [:span#file-name "No file chosen"]]]
-          [:div.text-center.mt-3
-           [:button {:type "submit" :class "btn btn-success btn-lg"} "Upload"]]]
-         [:div.text-center.mt-4
+          [:div.mt-3.text-center
+           [:button {:type "submit" :class "btn button-30 btn-lg"} "Remove background"]]]
+         [:div
           [:div#canvas-container {:class "border border-secondary p-3" :style "position: relative; width: 100%; max-width: 800px; margin: 0 auto; box-sizing: border-box;"}
-           [:canvas#image-canvas {:width "800" :height "690" :style "display: block; margin: 0 auto; border: 3px solid #ccc;"}]]]
+           [:canvas#image-canvas {:width "500" :height "500" :style "background-color: white;display: block; padding: 10px; margin: 20px auto; border: 1px solid #ccc; border-radius: 30px; box-shadow: 0 0 20px grey;"}]]]
          [:div.text-center.mt-2
-          [:button#download-btn.btn.btn-primary {:type "button"} "Download Image"]]
+          [:button#download-btn.btn.button-2 {:type "button"} "Download Image"]]
          [:script {:type "text/javascript"}
           (str "document.getElementById('upload-form').onsubmit = function(event) {"
                "  event.preventDefault();"
